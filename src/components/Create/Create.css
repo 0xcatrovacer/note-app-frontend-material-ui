@@ -1,0 +1,8 @@
+.CreateNoteForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 120px;
+  margin-right: 120px;
+}
