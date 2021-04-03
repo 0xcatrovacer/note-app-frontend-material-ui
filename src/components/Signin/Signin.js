@@ -54,7 +54,7 @@ const useStyles = makeStyles({
         fontSize: 30
     },
     button: {
-        width: 200,
+        width: 300,
         marginTop: 40,
         height: 50,
         paddingRight: 10,
@@ -107,86 +107,83 @@ const Signin = () => {
     return (
 
         <div className="Signin">
-
-            <div className="Create">
-                <Container>
-                    <Typography
-                        variant="h5"
-                        component="h2"
-                        color="primary"
-                        className={classes.title}
-                        gutterBottom
-                    >
-                        Signin
+            <Container>
+                <Typography
+                    variant="h5"
+                    component="h2"
+                    color="primary"
+                    className={classes.title}
+                    gutterBottom
+                >
+                    Signin
                 </Typography>
 
-                    <form noValidate autoComplete='off' className='CreateNoteForm'>
-                        <TextField
-                            label='Username'
-                            variant='outlined'
-                            color='primary'
-                            value={username}
-                            onChange={(e) => {
-                                setUsername(e.target.value)
-                            }}
-                            fullWidth
-                            required
-                            className={classes.field}
-                            InputProps={{
-                                className: "CreateInput"
-                            }}
-                            InputLabelProps={{
-                                className: "CreateInputLabel"
-                            }}
-                        />
-                        <TextField
-                            label='Password'
-                            variant='outlined'
-                            color='primary'
-                            type={showPassword ? 'text' : 'password'}
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value)
-                            }}
-                            fullWidth
-                            required
-                            className={classes.field}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={(e) => {
-                                            e.preventDefault();
-                                        }}
-                                        value={showPassword}
-                                    >
-                                        {showPassword ? <Visibility color='primary' /> : <VisibilityOff color='primary' />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            onClick={handleSignin}
-                        >
-                            Sign In
+                <form noValidate autoComplete='off' className='CreateNoteForm'>
+                    <TextField
+                        label='Username'
+                        variant='outlined'
+                        color='primary'
+                        value={username}
+                        onChange={(e) => {
+                            setUsername(e.target.value)
+                        }}
+                        fullWidth
+                        required
+                        className={classes.field}
+                        InputProps={{
+                            className: "CreateInput"
+                        }}
+                        InputLabelProps={{
+                            className: "CreateInputLabel"
+                        }}
+                    />
+                    <TextField
+                        label='Password'
+                        variant='outlined'
+                        color='primary'
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value)
+                        }}
+                        fullWidth
+                        required
+                        className={classes.field}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={(e) => {
+                                        e.preventDefault();
+                                    }}
+                                    value={showPassword}
+                                >
+                                    {showPassword ? <Visibility color='primary' /> : <VisibilityOff color='primary' />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        onClick={handleSignin}
+                    >
+                        Sign In
                     </Button>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="secondary"
-                            className={classes.button}
-                            onClick={handleCreateNew}
-                        >
-                            Create New Account
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={handleCreateNew}
+                    >
+                        Create New Account
                     </Button>
-                    </form>
-                </Container>
-            </div>
+                </form>
+            </Container>
 
         </div>
     )
