@@ -12,6 +12,11 @@ const theme = createMuiTheme({
       main: '#4db5ff',
       dark: '#0095ff',
       light: '#63beff'
+    },
+    secondary: {
+      main: '#42fff3',
+      dark: '#39c4bb',
+      light: '#8cfff8'
     }
   },
   typography: {
@@ -30,13 +35,13 @@ const App = () => {
         <Router>
           <Switch>
             <Route exact path="/">
+              <Signin />
+            </Route>
+            <Route path="/notes">
               <Notes />
             </Route>
             <Route path="/create">
               <Create />
-            </Route>
-            <Route path="/signin">
-              <Signin />
             </Route>
           </Switch>
         </Router>

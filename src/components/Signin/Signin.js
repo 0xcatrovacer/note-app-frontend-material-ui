@@ -3,13 +3,14 @@ import React, { useState } from 'react'
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import Container from "@material-ui/core/Container"
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import { makeStyles } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { useHistory } from 'react-router'
+import axios from 'axios'
 
 const useStyles = makeStyles({
     field: {
@@ -56,7 +57,7 @@ const useStyles = makeStyles({
         width: 200,
         marginTop: 40,
         height: 50,
-        paddingRight: 0,
+        paddingRight: 10,
         fontWeight: 700
     }
 })
@@ -64,11 +65,13 @@ const useStyles = makeStyles({
 
 const Signin = () => {
 
+    const classes = useStyles()
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
-    const classes = useStyles()
+    const history = useHistory()
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
@@ -76,9 +79,29 @@ const Signin = () => {
 
     const handleSignin = (e) => {
         e.preventDefault();
-        console.log('Signin')
-        setUsername('')
-        setPassword('')
+        const user = { username, password }
+
+        axios({
+            method: 'POST',
+            url: `${process.env.REACT_APP_NOTERAPP_BACKEND}/users/login`,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: user
+        }).then((res) => {
+            console.log('User logged in')
+            const token = res.data.token
+            localStorage.setItem('token', token)
+            history.push('/notes')
+        }).catch((err) => {
+            alert('Authentication failed')
+            setUsername('')
+            setPassword('')
+        })
+    }
+
+    const handleCreateNew = (e) => {
+        history.push('/register')
     }
 
     return (
@@ -148,7 +171,6 @@ const Signin = () => {
                             variant="contained"
                             color="primary"
                             className={classes.button}
-                            endIcon={<KeyboardArrowRightIcon />}
                             onClick={handleSignin}
                         >
                             Sign In
@@ -156,10 +178,9 @@ const Signin = () => {
                         <Button
                             type="submit"
                             variant="contained"
-                            color="primary"
+                            color="secondary"
                             className={classes.button}
-                            endIcon={<KeyboardArrowRightIcon />}
-                            onClick={handleSignin}
+                            onClick={handleCreateNew}
                         >
                             Create New Account
                     </Button>
