@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Create from './components/Create/Create';
 import Notes from './components/Notes/Notes';
+import Signin from './components/Signin/Signin';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
 
@@ -33,6 +34,9 @@ const App = () => {
             </Route>
             <Route path="/create">
               <Create />
+            </Route>
+            <Route path="/signin">
+              <Signin />
             </Route>
           </Switch>
         </Router>
