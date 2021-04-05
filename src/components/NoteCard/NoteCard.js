@@ -13,7 +13,7 @@ const NoteCard = ({ note, handleDelete }) => {
                 <CardHeader
                     action={
                         <IconButton onClick={() => handleDelete(note._id)}>
-                            <DeleteIcon />
+                            <DeleteIcon color='primary' />
                         </IconButton>
                     }
                     title={note.title}

@@ -2,41 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
-// import { makeStyles } from '@material-ui/core';
 import NoteCard from '../NoteCard/NoteCard';
 
-// const useStyles = makeStyles({
-// note: {
-//     marginTop: 20,
-//     marginLeft: 30,
-//     marginRight: 30,
-//     width: 450,
-//     height: 200,
-//     display: 'flex',
-//     flexDirection: 'column'
-// },
-// title: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     paddingLeft: 75,
-//     paddingTop: 25,
-//     paddingBottom: 10,
-//     fontSize: 25
-// },
-// content: {
-//     display: 'flex',
-//     justifyContent: 'center',
-//     paddingTop: 25,
-//     paddingLeft: 20,
-//     paddingRight: 20,
-//     paddingBottom: 0,
-// },
-// DelButton: {
-//     marginLeft: 70,
-//     cursor: 'pointer'
-// }
-// })
 
 const Notes = () => {
 
@@ -72,8 +39,8 @@ const Notes = () => {
             console.log(e.message)
         })
 
-        // const newNotes = notes.filter((note) => note.id != id)
-        // setNotes(newNotes)
+        const newNotes = notes.filter((note) => note.id != id)
+        setNotes(newNotes)
     }
 
 
