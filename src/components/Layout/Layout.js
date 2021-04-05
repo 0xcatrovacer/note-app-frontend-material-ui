@@ -65,8 +65,9 @@ const Layout = ({ children }) => {
     const history = useHistory()
     const location = useLocation()
 
+    const token = localStorage.getItem('token')
+
     useEffect(async () => {
-        const token = localStorage.getItem('token')
 
         await axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/users/me`, {
             method: 'GET',
@@ -78,6 +79,14 @@ const Layout = ({ children }) => {
         })
     }, [])
 
+    const handleSignOut = () => {
+        axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/logout`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        localStorage.removeItem('token')
+        history.push('/')
+    }
 
     const menuItems = [
         {
@@ -104,7 +113,7 @@ const Layout = ({ children }) => {
                     <Typography className={classes.appbarname}>
                         welcome, {username}!
                     </Typography>
-                    <Button variant='contained' className={classes.button} color='default'>
+                    <Button variant='contained' className={classes.button} color='default' onClick={handleSignOut}>
                         Sign Out
                     </Button>
                     <Button variant='contained' className={classes.button} color='secondary'>
