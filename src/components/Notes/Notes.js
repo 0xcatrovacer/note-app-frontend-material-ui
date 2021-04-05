@@ -39,7 +39,7 @@ const Notes = () => {
             console.log(e.message)
         })
 
-        const newNotes = notes.filter((note) => note.id != id)
+        const newNotes = notes.filter((note) => note.id !== id)
         setNotes(newNotes)
     }
 

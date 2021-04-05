@@ -6,6 +6,7 @@ import Signin from './components/Signin/Signin';
 import SideDrawer from './components/SideDrawer/SideDrawer';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+import Register from './components/Signin/Register';
 
 const theme = createMuiTheme({
   palette: {
@@ -37,6 +38,9 @@ const App = () => {
           <Switch>
             <Route exact path="/">
               <Signin />
+            </Route>
+            <Route path="/register">
+              <Register />
             </Route>
             <SideDrawer>
               <Route path="/notes">
