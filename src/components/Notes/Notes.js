@@ -82,7 +82,7 @@ const Notes = () => {
         <Container>
             <Grid container spacing={3}>
                 {notes && notes.map((note) => (
-                    <Grid item xs={12} sm={6} md={4} key={note.id}>
+                    <Grid item xs={12} sm={6} md={4} key={note._id}>
                         <NoteCard note={note} handleDelete={handleDelete} />
                     </Grid>
                 ))}

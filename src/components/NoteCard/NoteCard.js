@@ -12,7 +12,7 @@ const NoteCard = ({ note, handleDelete }) => {
             <Card elevation={1}>
                 <CardHeader
                     action={
-                        <IconButton onClick={() => handleDelete(note.id)}>
+                        <IconButton onClick={() => handleDelete(note._id)}>
                             <DeleteIcon />
                         </IconButton>
                     }
