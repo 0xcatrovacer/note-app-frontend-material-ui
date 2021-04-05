@@ -3,9 +3,17 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import NoteCard from '../NoteCard/NoteCard';
+import { makeStyles } from '@material-ui/core';
 
+
+const useStyles = makeStyles({
+    notecontent: {
+        marginTop: 20
+    }
+})
 
 const Notes = () => {
+    const classes = useStyles()
 
     const [notes, setNotes] = useState(null);
 
@@ -46,7 +54,7 @@ const Notes = () => {
 
 
     return (
-        <Container>
+        <Container className={classes.notecontent}>
             <Grid container spacing={3}>
                 {notes && notes.map((note) => (
                     <Grid item xs={12} sm={6} md={4} key={note._id}>
