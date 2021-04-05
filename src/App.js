@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Create from './components/Create/Create';
 import Notes from './components/Notes/Notes';
 import Signin from './components/Signin/Signin';
-import SideDrawer from './components/SideDrawer/SideDrawer';
+import Layout from './components/Layout/Layout';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
 import Register from './components/Signin/Register';
@@ -42,14 +42,14 @@ const App = () => {
             <Route path="/register">
               <Register />
             </Route>
-            <SideDrawer>
+            <Layout>
               <Route path="/notes">
                 <Notes />
               </Route>
               <Route path="/create">
                 <Create />
               </Route>
-            </SideDrawer>
+            </Layout>
           </Switch>
         </Router>
       </div>

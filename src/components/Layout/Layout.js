@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 })
 
-const SideDrawer = ({ children }) => {
+const Layout = ({ children }) => {
 
     const classes = useStyles()
     const history = useHistory()
@@ -93,4 +93,4 @@ const SideDrawer = ({ children }) => {
     )
 }
 
-export default SideDrawer
+export default Layout
