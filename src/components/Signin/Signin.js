@@ -149,7 +149,7 @@ const Signin = () => {
                     <Button
                         type="submit"
                         variant="contained"
-                        color="secondary"
+                        color="default"
                         className={classes.button}
                         onClick={handleCreateNew}
                     >

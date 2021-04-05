@@ -149,7 +149,7 @@ const Register = () => {
                     <Button
                         type="submit"
                         variant="contained"
-                        color="secondary"
+                        color="default"
                         className={classes.button}
                         onClick={handleLogin}
                     >

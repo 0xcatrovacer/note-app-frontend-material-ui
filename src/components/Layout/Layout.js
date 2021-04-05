@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -13,6 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CreateIcon from '@material-ui/icons/Create';
 import NotesIcon from '@material-ui/icons/Notes';
 import { format } from 'date-fns'
+import axios from 'axios'
 
 
 const drawerwidth = 240
@@ -43,6 +44,9 @@ const useStyles = makeStyles((theme) => {
         appbar: {
             width: `calc(100% - ${drawerwidth}px)`
         },
+        appbarname: {
+            marginRight: 10
+        },
         toolbar: theme.mixins.toolbar,
         date: {
             flexGrow: 1
@@ -55,10 +59,24 @@ const useStyles = makeStyles((theme) => {
 })
 
 const Layout = ({ children }) => {
+    const [username, setUsername] = useState('')
 
     const classes = useStyles()
     const history = useHistory()
     const location = useLocation()
+
+    useEffect(async () => {
+        const token = localStorage.getItem('token')
+
+        await axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/users/me`, {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${token}` }
+        }).then((res) => {
+            setUsername(res.data.username)
+        }).catch((e) => {
+            console.log(e.message)
+        })
+    }, [])
 
 
     const menuItems = [
@@ -83,8 +101,8 @@ const Layout = ({ children }) => {
                     <Typography className={classes.date}>
                         {format(new Date(), 'do MMMM Y')}
                     </Typography>
-                    <Typography>
-                        Swarnab
+                    <Typography className={classes.appbarname}>
+                        welcome, {username}!
                     </Typography>
                     <Button variant='contained' className={classes.button} color='default'>
                         Sign Out
@@ -102,7 +120,7 @@ const Layout = ({ children }) => {
                 anchor="left"
             >
                 <div>
-                    <Typography variant='h5' className={classes.title}>
+                    <Typography variant='h5' className={classes.title} color='primary'>
                         Noter App
                     </Typography>
                 </div>
