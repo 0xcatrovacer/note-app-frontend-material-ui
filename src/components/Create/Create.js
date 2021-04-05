@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import './Create.css'
 
@@ -8,6 +8,9 @@ import Container from "@material-ui/core/Container"
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import { makeStyles } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
+
+import axios from 'axios'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles({
     field: {
@@ -34,7 +37,32 @@ const useStyles = makeStyles({
 
 const Create = () => {
 
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+
     const classes = useStyles()
+    const history = useHistory()
+
+    const note = { title, content }
+
+    const handleCreate = async (e) => {
+        e.preventDefault()
+
+        const token = localStorage.getItem('token')
+
+        await axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/notes`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}` },
+            data: note
+        }).then((res) => {
+            console.log(res.data)
+            setTitle('')
+            setContent('')
+            history.push('/notes')
+        }).catch((e) => {
+            console.log(e.message)
+        })
+    }
 
     return (
         <div className="Create">
@@ -56,6 +84,10 @@ const Create = () => {
                         color='primary'
                         fullWidth
                         required
+                        value={title}
+                        onChange={(e) => {
+                            setTitle(e.target.value)
+                        }}
                         className={classes.field}
                         InputProps={{
                             className: "CreateInput"
@@ -72,6 +104,10 @@ const Create = () => {
                         rows={6}
                         fullWidth
                         required
+                        value={content}
+                        onChange={(e) => {
+                            setContent(e.target.value)
+                        }}
                         className={classes.field}
                         InputLabelProps={{
                             className: "CreateInputLabel"
@@ -81,6 +117,7 @@ const Create = () => {
                         type="submit"
                         variant="contained"
                         color="primary"
+                        onClick={handleCreate}
                         className={classes.button}
                         endIcon={<KeyboardArrowRightIcon />}
                     >
