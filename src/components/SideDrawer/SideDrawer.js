@@ -28,6 +28,11 @@ const useStyles = makeStyles({
     },
     active: {
         background: '#f4f4f4',
+    },
+    title: {
+        marginTop: 10,
+        marginLeft: 15,
+        marginBottom: 5
     }
 })
 
@@ -61,7 +66,7 @@ const SideDrawer = ({ children }) => {
                 anchor="left"
             >
                 <div>
-                    <Typography variant='h5' classname={classes.title}>
+                    <Typography variant='h5' className={classes.title}>
                         Noter App
                     </Typography>
                 </div>
