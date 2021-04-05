@@ -6,14 +6,13 @@ import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles({
     note: {
         marginTop: 20,
         marginLeft: 30,
         marginRight: 30,
-        background: 'black',
-        boxShadow: '1px 1px 8px white',
         width: 450,
         height: 200,
         display: 'flex',
@@ -38,6 +37,7 @@ const useStyles = makeStyles({
     },
     DelButton: {
         marginLeft: 70,
+        cursor: 'pointer'
     }
 })
 
@@ -46,6 +46,8 @@ const Notes = () => {
     const classes = useStyles()
 
     const [notes, setNotes] = useState(null);
+
+    const history = useHistory();
 
     const callFn = () => {
         const token = localStorage.getItem('token')
@@ -80,12 +82,13 @@ const Notes = () => {
                         >
                             {note.title}
                             <DeleteIcon
-                                color='secondary'
                                 className={classes.DelButton}
+                                onClick={() => {
+                                    history.push('/delete')
+                                }}
                             />
                         </Typography>
                         <Typography
-                            color="secondary"
                             className={classes.content}
                         >
                             {note.content}

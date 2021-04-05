@@ -13,34 +13,7 @@ const useStyles = makeStyles({
     field: {
         marginTop: 20,
         marginBottom: 20,
-        display: 'block',
-        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderColor: "white"
-        },
-        "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderColor: "lightgray"
-        },
-        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#4db5ff"
-        },
-        "& .MuiOutlinedInput-input": {
-            color: "white"
-        },
-        "&:hover .MuiOutlinedInput-input": {
-            color: "lightgray"
-        },
-        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
-            color: "#4db5ff"
-        },
-        "& .MuiInputLabel-outlined": {
-            color: "white"
-        },
-        "&:hover .MuiInputLabel-outlined": {
-            color: "lightgray"
-        },
-        "& .MuiInputLabel-outlined.Mui-focused": {
-            color: "#4db5ff"
-        }
+        display: 'block'
     },
     title: {
         display: 'flex',
