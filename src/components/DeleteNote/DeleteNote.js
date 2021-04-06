@@ -51,13 +51,13 @@ const DeleteNote = () => {
         await callfn(id)
     }, [])
 
-    const handleDelete = async (id) => {
+    const handleDeleteNote = async (id) => {
 
         await axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/notes/${id}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         }).then((res) => {
-            console.log(res)
+            history.push('/notes')
         }).catch((e) => {
             console.log(e.message)
         })
@@ -90,6 +90,7 @@ const DeleteNote = () => {
                     variant='contained'
                     color='secondary'
                     className={classes.DelButton}
+                    onClick={() => handleDeleteNote(id)}
                 >
                     Yes
             </Button>
