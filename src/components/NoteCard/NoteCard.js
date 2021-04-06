@@ -19,7 +19,7 @@ const NoteCard = ({ note, handleDelete }) => {
                     title={note.title}
                 />
                 <CardContent>
-                    <Typography variant="body1" color="textSecondary">
+                    <Typography variant="body1" color="textSecondary" className='noteContent'>
                         {note.content}
                     </Typography>
                 </CardContent>

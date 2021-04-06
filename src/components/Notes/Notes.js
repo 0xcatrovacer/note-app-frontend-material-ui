@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import NoteCard from '../NoteCard/NoteCard';
 import { makeStyles } from '@material-ui/core';
+import Masonry from 'react-masonry-css';
 
 
 const useStyles = makeStyles({
@@ -51,17 +51,25 @@ const Notes = () => {
         setNotes(newNotes)
     }
 
-
+    const breakpoints = {
+        default: 3,
+        1100: 2,
+        700: 1
+    }
 
     return (
         <Container className={classes.notecontent}>
-            <Grid container spacing={3}>
+            <Masonry
+                breakpointCols={breakpoints}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column"
+            >
                 {notes && notes.map((note) => (
-                    <Grid item xs={12} sm={6} md={4} key={note._id}>
+                    <div key={note._id}>
                         <NoteCard note={note} handleDelete={handleDelete} />
-                    </Grid>
+                    </div>
                 ))}
-            </Grid>
+            </Masonry>
         </Container>
     )
 }
