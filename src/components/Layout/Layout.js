@@ -88,6 +88,15 @@ const Layout = ({ children }) => {
         history.push('/')
     }
 
+    const handleDeleteAccount = () => {
+        axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/users/delete`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        localStorage.removeItem('token')
+        history.push('/')
+    }
+
     const menuItems = [
         {
             text: 'My Notes',
@@ -116,7 +125,7 @@ const Layout = ({ children }) => {
                     <Button variant='contained' className={classes.button} color='default' onClick={handleSignOut}>
                         Sign Out
                     </Button>
-                    <Button variant='contained' className={classes.button} color='secondary'>
+                    <Button variant='contained' className={classes.button} color='secondary' onClick={handleDeleteAccount}>
                         Delete Account
                     </Button>
                 </Toolbar>
