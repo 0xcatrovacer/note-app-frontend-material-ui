@@ -5,14 +5,18 @@ import CardContent from '@material-ui/core/CardContent'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useHistory } from 'react-router'
 
-const NoteCard = ({ note, handleDelete }) => {
+const NoteCard = ({ note }) => {
+
+    const history = useHistory()
+
     return (
         <div>
             <Card elevation={1}>
                 <CardHeader
                     action={
-                        <IconButton onClick={() => handleDelete(note._id)}>
+                        <IconButton onClick={() => history.push(`/deletenote/${note._id}`)}>
                             <DeleteIcon color='primary' />
                         </IconButton>
                     }

@@ -35,22 +35,6 @@ const Notes = () => {
             })
     }
 
-    const handleDelete = async (id) => {
-        const token = localStorage.getItem('token')
-
-        await axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/notes/${id}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': `Bearer ${token}` }
-        }).then((res) => {
-            console.log(res)
-        }).catch((e) => {
-            console.log(e.message)
-        })
-
-        const newNotes = notes.filter((note) => note.id !== id)
-        setNotes(newNotes)
-    }
-
     const breakpoints = {
         default: 3,
         1100: 2,
@@ -66,7 +50,7 @@ const Notes = () => {
             >
                 {notes && notes.map((note) => (
                     <div key={note._id}>
-                        <NoteCard note={note} handleDelete={handleDelete} />
+                        <NoteCard note={note} />
                     </div>
                 ))}
             </Masonry>
