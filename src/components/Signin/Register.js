@@ -9,10 +9,22 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router'
 import axios from 'axios'
 
-const useStyles = makeStyles({
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />
+}
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        }
+    },
     field: {
         marginTop: 20,
         marginBottom: 20,
@@ -33,7 +45,7 @@ const useStyles = makeStyles({
         paddingRight: 10,
         fontWeight: 700
     }
-})
+}))
 
 
 const Register = () => {
@@ -43,6 +55,9 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [alertMessage, setalertMessage] = useState('')
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const history = useHistory()
 
@@ -65,13 +80,24 @@ const Register = () => {
             console.log('Account created')
             const token = res.data.token
             localStorage.setItem('token', token)
+            setalertMessage(res.data.message)
+            setIsSuccess(true)
+            setOpen(true);
             history.push('/notes')
-            alert(res.data.message)
         }).catch((err) => {
-            alert(err.response.data.message)
+            setalertMessage(err.response.data.message)
+            setIsSuccess(false)
             setUsername('')
             setPassword('')
+            setOpen(true);
         })
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     }
 
     const handleLogin = () => {
@@ -79,8 +105,11 @@ const Register = () => {
     }
 
     return (
-
         <div className="Signin">
+            <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                {!isSuccess ? <Alert onClose={handleClose} severity="error"> {alertMessage} </Alert> : <Alert onClose={handleClose} severity="success"> {alertMessage} </Alert>}
+            </Snackbar>
+
             <Container>
                 <Typography
                     variant="h5"

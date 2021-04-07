@@ -9,10 +9,22 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router'
 import axios from 'axios'
 
-const useStyles = makeStyles({
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />
+}
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        }
+    },
     field: {
         marginTop: 20,
         marginBottom: 20,
@@ -33,7 +45,7 @@ const useStyles = makeStyles({
         paddingRight: 10,
         fontWeight: 700
     }
-})
+}))
 
 
 const Signin = () => {
@@ -43,6 +55,8 @@ const Signin = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [alertMessage, setalertMessage] = useState('')
 
     const history = useHistory()
 
@@ -67,10 +81,18 @@ const Signin = () => {
             localStorage.setItem('token', token)
             history.push('/notes')
         }).catch((e) => {
-            alert(e.response.data.message)
+            setalertMessage(e.response.data.message)
             setUsername('')
             setPassword('')
+            setOpen(true)
         })
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     }
 
     const handleCreateNew = () => {
@@ -80,6 +102,9 @@ const Signin = () => {
     return (
 
         <div className="Signin">
+            <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error"> {alertMessage} </Alert>
+            </Snackbar>
             <Container>
                 <Typography
                     variant="h5"
