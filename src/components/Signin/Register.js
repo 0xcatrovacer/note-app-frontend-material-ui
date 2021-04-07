@@ -62,12 +62,13 @@ const Register = () => {
             },
             data: user
         }).then((res) => {
-            console.log('User logged in')
+            console.log('Account created')
             const token = res.data.token
             localStorage.setItem('token', token)
             history.push('/notes')
+            alert(res.data.message)
         }).catch((err) => {
-            alert('Authentication failed')
+            alert(err.response.data.message)
             setUsername('')
             setPassword('')
         })

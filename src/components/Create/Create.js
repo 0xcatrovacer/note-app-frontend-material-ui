@@ -59,6 +59,7 @@ const Create = () => {
             setTitle('')
             setContent('')
             history.push('/notes')
+            alert(res.data.message)
         }).catch((e) => {
             console.log(e.message)
         })

@@ -80,21 +80,25 @@ const Layout = ({ children }) => {
     }, [])
 
     const handleSignOut = () => {
-        axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/logout`, {
+        axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/users/logout`, {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}` }
+        }).then((res) => {
+            localStorage.removeItem('token')
+            history.push('/')
+            alert(res.data.message)
         })
-        localStorage.removeItem('token')
-        history.push('/')
     }
 
     const handleDeleteAccount = () => {
         axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/users/delete`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
+        }).then((res) => {
+            localStorage.removeItem('token')
+            history.push('/')
+            alert(res.data.message)
         })
-        localStorage.removeItem('token')
-        history.push('/')
     }
 
     const menuItems = [

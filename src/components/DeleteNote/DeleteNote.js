@@ -58,6 +58,7 @@ const DeleteNote = () => {
             headers: { 'Authorization': `Bearer ${token}` }
         }).then((res) => {
             history.push('/notes')
+            alert(res.data.message)
         }).catch((e) => {
             console.log(e.message)
         })

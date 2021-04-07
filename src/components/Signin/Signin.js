@@ -66,14 +66,14 @@ const Signin = () => {
             const token = res.data.token
             localStorage.setItem('token', token)
             history.push('/notes')
-        }).catch((err) => {
-            alert('Authentication failed')
+        }).catch((e) => {
+            alert(e.response.data.message)
             setUsername('')
             setPassword('')
         })
     }
 
-    const handleCreateNew = (e) => {
+    const handleCreateNew = () => {
         history.push('/register')
     }
 
