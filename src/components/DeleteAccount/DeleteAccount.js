@@ -1,10 +1,10 @@
 import { Button, Container, makeStyles, Typography } from '@material-ui/core'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles({
-    deletenote: {
+    deleteaccount: {
         marginTop: 20,
         display: 'flex',
         flexDirection: 'column',
@@ -27,44 +27,43 @@ const useStyles = makeStyles({
     }
 })
 
-const DeleteNote = () => {
-    const [noteTitle, setNoteTitle] = useState('')
+const DeleteAccount = () => {
+    const [username, setUsername] = useState('')
 
     const classes = useStyles();
     const history = useHistory();
-
-    const { id } = useParams();
     const token = localStorage.getItem('token')
 
-    const callfn = async (id) => {
-        await axios.get(`${process.env.REACT_APP_NOTERAPP_BACKEND}/notes/${id}`, {
+    const callfn = async () => {
+        await axios.get(`${process.env.REACT_APP_NOTERAPP_BACKEND}/users/me`, {
+            method: 'GET',
             headers: { 'Authorization': `Bearer ${token}` }
         }).then((res) => {
-            setNoteTitle(res.data.title)
+            setUsername(res.data.username)
         }).catch((e) => {
             console.log(e.message)
         })
     }
 
     useEffect(async () => {
-        await callfn(id)
+        await callfn()
     }, [])
 
-    const handleDeleteNote = async (id) => {
-
-        await axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/notes/${id}`, {
+    const handleDeleteAccount = () => {
+        axios(`${process.env.REACT_APP_NOTERAPP_BACKEND}/users/delete`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         }).then((res) => {
-            history.push('/notes')
+            localStorage.removeItem('token')
+            history.push('/')
             alert(res.data.message)
         }).catch((e) => {
-            console.log(e.message)
+            console.log(e)
         })
     }
 
     return (
-        <Container className={classes.deletenote}>
+        <Container className={classes.deleteaccount}>
             <Typography
                 variant="h5"
                 component="h2"
@@ -72,7 +71,7 @@ const DeleteNote = () => {
                 className={classes.title}
                 gutterBottom
             >
-                Are you sure you want to delete the note {noteTitle}?
+                Are you sure you want to delete your account {username}? All your data will be lost!
             </Typography>
 
             <div className="DelButtons">
@@ -90,7 +89,7 @@ const DeleteNote = () => {
                     variant='contained'
                     color='secondary'
                     className={classes.DelButton}
-                    onClick={() => handleDeleteNote(id)}
+                    onClick={handleDeleteAccount}
                 >
                     Yes
             </Button>
@@ -99,4 +98,4 @@ const DeleteNote = () => {
     )
 }
 
-export default DeleteNote
+export default DeleteAccount

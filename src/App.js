@@ -8,6 +8,7 @@ import Layout from './components/Layout/Layout';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
 import Register from './components/Signin/Register';
 import DeleteNote from './components/DeleteNote/DeleteNote';
+import DeleteAccount from './components/DeleteAccount/DeleteAccount';
 
 const theme = createMuiTheme({
   palette: {
@@ -52,6 +53,9 @@ const App = () => {
               </Route>
               <Route path='/deletenote/:id'>
                 <DeleteNote />
+              </Route>
+              <Route path='/deleteaccount'>
+                <DeleteAccount />
               </Route>
             </Layout>
           </Switch>
